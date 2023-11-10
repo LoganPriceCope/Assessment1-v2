@@ -124,7 +124,8 @@ public class PlayerMain : MonoBehaviour
             {
                 anim.SetBool("jump", false);
                 isJumping = false;
-               if (isSprinting == true)
+                currentDoubleJumps = 0f;
+                if (isSprinting == true)
                 {
                     walkSpeed = 3f;
                 }
@@ -141,14 +142,22 @@ public class PlayerMain : MonoBehaviour
 
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+
+
+    void OnTriggerEnter2D(Collider2D powerUps)
     {
-        if (other.gameObject.CompareTag("Coin"))
+        if (powerUps.gameObject.CompareTag("Coin"))
         {
-            Destroy(other.gameObject);
+            Destroy(powerUps.gameObject);
             cs.coinCount++;
         }
+        else if (powerUps.gameObject.CompareTag("DoubleJumpBoost"))
+        {
+            Destroy(powerUps.gameObject);
+            MaxDoubleJumps = MaxDoubleJumps + 1;
+        }
     }
+
 
     
 }
